@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="stylesheet" href="css/style.css" />
-  <title>MineSweeper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>MineSweeper</title>
 </head>
 
 <body onload="onInit()">
@@ -19,17 +19,52 @@
     </div>
 
     <div class="top">
-        <h4 >Score:<span>0</span></h4>
-        <h4 style="margin-left: 50px; margin-right: 50px;" onclick="onInit()"><span1>😀</span1></h4>
-        <h4>Lives:<span>0</span></h4>
+        <h4>Score:<span>0</span></h4>
+        <h4 style="margin-left: 80px; margin-right: 50px;" onclick="onInit()">
+            <span1>😀</span1>
+        </h4>
+        <h4>Lifes:<span2>3</span2>
+        </h4>
+    </div>
+
+    <div class="hints">
+        <div class="hint">
+            <h4>Hints</h4>
+            <div class="hint-buttons">
+                <button class="hint1" title="hint" onclick="showHint(this)"></button>
+                <button class="hint2" title="hint" onclick="showHint(this)"></button>
+                <button class="hint3" title="hint" onclick="showHint(this)"></button>
+            </div>
+        </div>
+        <div>
+            <button class="manMine" onclick="addMinesManualy(this)">Add Manually Mines</button>
+        </div>
+        <div>
+            <button class="undo" onclick="undoBtn()">UNDO</button>
+        </div>
+        <div>
+            <button class="megaHint" onclick="megaHint()">MegaHint</button>
+        </div>
+        <div>
+            <button class="removeMine" onclick="removeMines()">Remove Mines</button>
+        </div>
+        <div class="safe-container">
+            <h4>Safe Cells Left</h4>
+            <button class="safe" title="hint" onclick="safeCell(this)">3</button>
+        </div>
+    </div>
+
+    <div class="modal">
+        <h3 class="msg"></h3>
+        <button class="restart-btn" onclick="onInit()">Play Again</button>
     </div>
     <!-- <div id="timer">0.000</div> -->
 
-    <table oncontextmenu="return false;">
+    <table>
         <tbody class="board"></tbody>
     </table>
 
-    <!-- <div class="modal">You Won!🏆</div> -->
+
 
     <script src="js/util.js"></script>
     <script src="js/game.js"></script>
