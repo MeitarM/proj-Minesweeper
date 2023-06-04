@@ -10,7 +10,8 @@
 </head>
 
 <body onload="onInit()">
-    <h1 style="margin-top: 200px;">MineSweeper</h1>
+    <h1 style="margin-top: 50px;">Welcome To</h1>
+    <h1>MineSweeper</h1>
 
     <div class="buttons">
         <button class="button" onclick="chooseLevel(4,2)">beginner</button>
@@ -18,53 +19,46 @@
         <button class="button" onclick="chooseLevel(12,32)">Expert</button>
     </div>
 
-    <div class="top">
-        <h4>Score:<span>0</span></h4>
-        <h4 style="margin-left: 80px; margin-right: 50px;" onclick="onInit()">
-            <span1>😀</span1>
-        </h4>
-        <h4>Lifes:<span2>3</span2>
-        </h4>
-    </div>
-
-    <div class="hints">
-        <div class="hint">
-            <h4>Hints</h4>
+    <div class="around">
+        <div class="top">
+            <h4 class="score">Score:<span>0</span></h4>
+            <h4 class="smiley" onclick="onInit()">
+                <span1 class="lifes"></span1>
+            </h4>
+            <div>
+                <h4 class="lifes">
+                    <span2></span2>
+                </h4>
+                <h4 id="timer" class="timer">0</h4>
+            </div>
+        </div>
+        <div class="hints">
             <div class="hint-buttons">
                 <button class="hint1" title="hint" onclick="showHint(this)"></button>
                 <button class="hint2" title="hint" onclick="showHint(this)"></button>
                 <button class="hint3" title="hint" onclick="showHint(this)"></button>
             </div>
-        </div>
-        <div>
-            <button class="manMine" onclick="addMinesManualy(this)">Add Manually Mines</button>
-        </div>
-        <div>
             <button class="undo" onclick="undoBtn()">UNDO</button>
         </div>
-        <div>
+        <div class="hints">
             <button class="megaHint" onclick="megaHint()">MegaHint</button>
-        </div>
-        <div>
-            <button class="removeMine" onclick="removeMines()">Remove Mines</button>
-        </div>
-        <div class="safe-container">
-            <h4>Safe Cells Left</h4>
+            <table>
+                <tbody class="board"></tbody>
+            </table>
+            <div class="safe-container">
+                <h4>Safe cell</h4>
+            </div>
             <button class="safe" title="hint" onclick="safeCell(this)">3</button>
         </div>
+        <div class="mines">
+            <button class="removeMine" onclick="removeMines()">Remove Mines</button>
+            <button class="manMine" onclick="addMinesManualy(this)">Add Manually Mines</button>
+        </div>
     </div>
-
     <div class="modal">
         <h3 class="msg"></h3>
         <button class="restart-btn" onclick="onInit()">Play Again</button>
     </div>
-    <!-- <div id="timer">0.000</div> -->
-
-    <table>
-        <tbody class="board"></tbody>
-    </table>
-
-
 
     <script src="js/util.js"></script>
     <script src="js/game.js"></script>

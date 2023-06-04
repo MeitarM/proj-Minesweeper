@@ -16,6 +16,7 @@ const SAD = '😥'
 const WIN = '😎'
 const HINT_ACTIVE = '🌕'
 const HINT_DEACTIVE = '🌑'
+const LIFE = '💖'
 
 function onInit() {
     gameDefault()
@@ -42,6 +43,8 @@ function gameDefault() {
         cells : []
     }
     closeModal()
+    stopTimer()
+    clearTimer()
     const elEmoji = document.querySelector('.top span1')
     elEmoji.innerHTML = SMILE
     var elLifes = document.querySelector('.hint1')
@@ -55,7 +58,9 @@ function gameDefault() {
     var elMine = document.querySelector('.manMine')
     elMine.innerText = 'Add Manually Mines'
     var elLifes = document.querySelector('.top span2')
-    elLifes.innerHTML = gGame.lifes
+    elLifes.innerHTML = '💖💖💖'
+    var elLifes = document.querySelector('.safe')
+    elLifes.innerHTML = gGame.safe
 }
 
 function buildBoard() {
@@ -154,17 +159,22 @@ function onCellClicked(elCell, i, j) {
         return
     }
     if (!gGame.isOn) {
+        startTimer()
         if (gManualMines.mineCount !== gLevel.MINES) addRandomMines(i, j)
         setMinesNegsCount(gBoard)
         gGame.isOn = true
     }
     clickHistory(i, j)
-    if (currCell.isShown) return
-    if (currCell.isFlaged) return
+    console.log(gClickHint)
     if (gClickHint) {
+        console.log('check')
         showHint(elCell, i, j)
         return
     }
+
+    if (currCell.isShown) return
+    if (currCell.isFlaged) return
+    
     currCell.isShown = true
 
     if (currCell.isMine) {
@@ -202,10 +212,12 @@ function checkGameOver() {
     // check if lost
     gGame.lifes--
     const elLifes = document.querySelector('.top span2')
-    elLifes.innerHTML = gGame.lifes
+    elLifes.innerHTML = ''
+    for (var i=0;i<gGame.lifes;i++) elLifes.innerHTML += LIFE
     if (gGame.lifes === 0) {
         const elEmoji = document.querySelector('.top span1')
         elEmoji.innerHTML = SAD
+        stopTimer()
         openModal('Game Over')
     }
 }
@@ -244,6 +256,7 @@ function closeModal() {
 
 function showHint(elHint, rowIdx, colIdx) {
     // show the curr cell and its neighboors for 1 sec
+    console.log(gClickHint)
     if (elHint.innerText === HINT_DEACTIVE) return
     if (!gClickHint) {
         gClickHint = true
@@ -256,8 +269,9 @@ function showHint(elHint, rowIdx, colIdx) {
         for (var j = colIdx - 1; j < colIdx + 2; j++) {
             if (j < 0 || j > gBoard[0].length - 1) continue
 
-            hintNeighbors.push({ i, j })
+            if (gBoard[i][j].isShown) continue
             gBoard[i][j].isShown = true
+            hintNeighbors.push({ i, j })
         }
     }
     renderBoard(gBoard)
@@ -354,6 +368,7 @@ function megaHint(i,j) {
             gBoard[i][j].isShown = true
         }
     }
+    gMegaHint.isClicked = false
     renderBoard(gBoard)
     setTimeout(() => hideMegaHint(), 2000)
 
